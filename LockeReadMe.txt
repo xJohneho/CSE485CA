@@ -1,0 +1,1 @@
+Change file path in logs.java, and virtual assistant.java
