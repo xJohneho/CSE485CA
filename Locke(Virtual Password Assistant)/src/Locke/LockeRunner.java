@@ -73,57 +73,24 @@ public class LockeRunner extends Application {
 	        aButton.setOnAction(e -> {
 	        	String target = String.valueOf(textField.getText());
 	        	String target2 = String.valueOf(textField2.getText());
-	        	
-	        	try {
-					result.appendText(test.EncryptedSelfCreatePW(target, target2));
-					result2.appendText(test.DisplayDecryptedPassword(target));
-				} catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
 	        });
 	        bButton.setOnAction(e -> {
 	        	String target = String.valueOf(textField.getText());
-	        	try {
-	        		result.appendText(test.EncryptedGenerator(target, 12));
-				} catch (IOException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
 	        });
 	        cButton.setOnAction(e -> {
 	        	String target = String.valueOf(textField.getText());
 	        	String target2 = String.valueOf(textField2.getText());
-	        	try {
-	        		result.appendText(test.EncyptedPasswordUpdater(target, target2));
-				} catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
 
 	        });
 	        dButton.setOnAction(e -> {
 	        	String target = String.valueOf(textField.getText());
-	        	try {
-	        		result2.appendText(test.DisplayDecryptedPassword(target));
-				} catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
 	        });
 	        eButton.setOnAction(e -> {
 	        	String target = String.valueOf(textField.getText());
-	        	
-	        	try {
-					test2.deletePassword(target);
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
 	        	
 
 	        });
@@ -138,6 +105,7 @@ public class LockeRunner extends Application {
 	}
 	
 	public static void main(String[] args) {
+		 PasswordManager test = new PasswordManager();
 		 
         SwingUtilities.invokeLater(new Runnable() {
             @Override

@@ -19,47 +19,47 @@ public class PasswordTester {
 	String error = "Website already exists in your saved records!";
 	String error2 = "Website does not exist in your saved records!";
 	Properties prop = new Properties();
-	String propertiesFilePath = ("C:\\Users\\John\\Desktop\\Locke\\files\\config.properties");
+	//String propertiesFilePath = ("/Users/John/Desktop/Locke/files/config.properties");
 	PasswordTester() throws Exception{
 		Logs.log(Level.INFO, Logs.class.getName());
 	}
-	public String EncryptedGenerator(String wSite, int pwLength) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException {		
-		prop.load(new FileInputStream("C:\\Users\\John\\Desktop\\Locke\\files\\config.properties"));
+	public String EncryptedGenerator(String propertiesFilePath, String wSite, int pwLength, boolean inclUpper, boolean inclLower, boolean inclNum, boolean inclSpecial) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException {		
+		prop.load(new FileInputStream(propertiesFilePath));
 		if(prop.getProperty(wSite.toLowerCase()) != null) {
 			return error;
 		}else {
-			pw = d.generatePassword(pwLength);
+			pw = d.generatePassword(propertiesFilePath, pwLength, inclUpper, inclLower, inclNum, inclSpecial);
 			encpw = c.encrypt(pw);
-			d.storeInfo(wSite, encpw);
+			d.storeInfo(propertiesFilePath, wSite, encpw);
 			return wSite +  " password is: " + pw + " has been saved.";
 		}
 	}
-	public String EncryptedSelfCreatePW(String wSite, String password) throws IOException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-		prop.load(new FileInputStream("C:\\Users\\John\\Desktop\\Locke\\files\\config.properties"));
+	public String EncryptedSelfCreatePW(String propertiesFilePath, String wSite, String password) throws IOException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+		prop.load(new FileInputStream(propertiesFilePath));
 		if(prop.getProperty(wSite.toLowerCase()) != null) {
 			return error;
 		}else {
-			pw = d.selfCreatePassword(wSite, password);
+			pw = d.selfCreatePassword(propertiesFilePath, wSite, password);
 			encpw = c.encrypt(pw);
-			d.storeInfo(wSite, encpw);
+			d.storeInfo(propertiesFilePath, wSite, encpw);
 			return wSite +  " password is: " + pw + " has been saved.";
 		}
 	}
-	public String EncyptedPasswordUpdater(String wSite, String password) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, FileNotFoundException, IOException {
-		prop.load(new FileInputStream("C:\\Users\\John\\Desktop\\Locke\\files\\config.properties"));
+	public String EncyptedPasswordUpdater(String propertiesFilePath, String wSite, String password) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, FileNotFoundException, IOException {
+		prop.load(new FileInputStream(propertiesFilePath));
 		if(prop.getProperty(wSite.toLowerCase()) != null) {
 			encpw = c.encrypt(password);
-			d.passwordUpdater(wSite, encpw);
-			return wSite +  " password has been updated and has been saved.";
+			d.passwordUpdater(propertiesFilePath, wSite, encpw);
+			return wSite +  " password has been updated to " + password + " and has been saved.";
 			
 		}else {
 			return error2;
 		}	
 	}
-	public String DisplayDecryptedPassword(String wSite) throws FileNotFoundException, IOException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-		prop.load(new FileInputStream("C:\\Users\\John\\Desktop\\Locke\\files\\config.properties"));
+	public String DisplayDecryptedPassword(String propertiesFilePath, String wSite) throws FileNotFoundException, IOException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+		prop.load(new FileInputStream(propertiesFilePath));
 		if(prop.getProperty(wSite.toLowerCase()) != null) {
-			pw = d.displayPassword(wSite);
+			pw = d.displayPassword(propertiesFilePath, wSite);
 			decpw = c.decrypt(pw);
 			return wSite + " password is: " +  decpw;
 		}else{
@@ -67,11 +67,11 @@ public class PasswordTester {
 		}
 		
 	}
-	public boolean loginChecker(String username, String pw) throws FileNotFoundException, IOException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+	public boolean loginChecker(String propertiesFilePath, String username, String pw) throws FileNotFoundException, IOException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
 		Properties prop = new Properties();
-		prop.load(new FileInputStream("C:\\Users\\John\\Desktop\\Locke\\files\\config.properties"));
+		prop.load(new FileInputStream(propertiesFilePath));
 		if(prop.getProperty(username.toLowerCase()) != null) {
-			String password = d.displayPassword(username);
+			String password = d.displayPassword(propertiesFilePath, username);
 			decpw = c.decrypt(password);
 			if(decpw.equals(pw)) {
 				return true;

@@ -18,7 +18,7 @@ public class Logs {
         //instance the logger
         logger = Logger.getLogger(Logs.class.getName());
         //instance the filehandler
-        fileHandler = new FileHandler("C:\\Users\\John\\Desktop\\Locke\\files\\logs.txt",true);
+        fileHandler = new FileHandler("/Users/John/Desktop/Locke/files/logs.txt",true);
         //instance formatter, set formatting, and handler
         plainText = new SimpleFormatter();
         fileHandler.setFormatter(plainText);
