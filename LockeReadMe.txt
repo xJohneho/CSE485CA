@@ -1,1 +1,3 @@
-Change file path in logs.java, and virtual assistant.java
+-Paste Locke.rar and extract onto desktop
+-Change desktop path in code for String propertiesFilePath
+-Paste commons-lang3-3.8.1-bin into Locke(Virtual Password Assistant)
